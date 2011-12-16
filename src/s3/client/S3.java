@@ -53,30 +53,10 @@ public class S3 implements EntryPoint {
 			}
 		});
 			
-		focusWidget.addKeyDownHandler(new KeyDownHandler() {
-			
+		focusWidget.addKeyDownHandler(new KeyDownHandler() {			
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
-				switch (event.getNativeKeyCode()) {
-				case KeyCodes.KEY_LEFT:
-					direction = Direction.LEFT;
-					break;
-					
-				case KeyCodes.KEY_RIGHT:
-					direction = Direction.RIGHT;
-					break;
-					
-				case KeyCodes.KEY_DOWN:
-					direction = Direction.DOWN;
-					break;
-				
-				case KeyCodes.KEY_UP:
-					direction = Direction.UP;
-					break;
-				
-				default:
-					break;
-				}				
+				direction = new KeyToDirectionStrategy().decide(direction, event.getNativeKeyCode());
 			}
 		});
 	}
@@ -90,11 +70,11 @@ public class S3 implements EntryPoint {
 		renderer.renderCells(s.getSegments());
 	}
 	
-	Snake s = new Snake(Position.at(5,6)) {{
-		append(new Position(5,5));
-		append(new Position(5,4));
+	Snake s = new Snake(Position.at(5,2)) {{
 		append(new Position(5,3));
-		append(new Position(5,2));
+		append(new Position(5,4));
+		append(new Position(5,5));
+		append(new Position(5,6));
 	}};
 	
 	private void setPlaygroundSize(RootPanel playground) {
