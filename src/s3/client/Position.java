@@ -1,5 +1,8 @@
 package s3.client;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Position {
 	private final int x;
 	private final int y;
@@ -15,7 +18,19 @@ public class Position {
 	}
 
 	public boolean adjacentWith(Position p) {
-		return false;
+		return getAdjacentCells().contains(p);
+	}	
+	
+	public Set<Position> getAdjacentCells() {
+		Set<Position> result = new HashSet<Position>();
+		for (Direction d : Direction.values()) {
+			result.add(getAdjacentCellToThe(d));
+		}
+		return result;
+	}
+	
+	public Position getAdjacentCellToThe(Direction di) {
+		return Position.at(x + di.getDeltaX(), y + di.getDeltaY());
 	}
 	
 	public int getX() {
@@ -47,5 +62,9 @@ public class Position {
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Position [x=" + x + ", y=" + y + "]";
+	}
 }
