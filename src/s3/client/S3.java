@@ -3,29 +3,20 @@ package s3.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class S3 implements EntryPoint {
-
-	/**
-	 * This is the entry point method.
-	 */
 	int squareSize = 20;
-	int fieldWidth=20;
-	int fieldHeght=20;
 	RootPanel playground;
 	SnakeRenderer renderer;
 	FocusWidget focusWidget;
+	
+	GameState game = new GameState();
 	
 	public void onModuleLoad() {
 		playground = RootPanel.get("playground");
@@ -33,7 +24,7 @@ public class S3 implements EntryPoint {
 		playground.addStyleDependentName("playground");
 		
 		renderer = new SnakeRenderer(playground);
-		setPlaygroundSize(playground);
+		updatePlaygroundSize();
 		
 		focusWidget = new Button();
 		playground.add(focusWidget);
@@ -56,28 +47,23 @@ public class S3 implements EntryPoint {
 		focusWidget.addKeyDownHandler(new KeyDownHandler() {			
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
-				direction = new KeyToDirectionStrategy().decide(direction, event.getNativeKeyCode());
+				Direction oldDirection = game.getSnakeDirection();
+				Direction newDirection = new KeyToDirectionStrategy().decide(oldDirection, event.getNativeKeyCode());
+				game.setSnakeDirection(newDirection);
 			}
 		});
 	}
 	
-	Direction direction = Direction.DOWN;
-	
 	private void tick() {
 		focusWidget.setFocus(true);
-		renderer.cleanCell(s.getLast());
-		s.moveTo(direction);
-		renderer.renderCells(s.getSegments());
+		renderer.cleanCell(game.lastSnakeCell());
+		game.tick();
+		renderer.renderCells(game.getSnakeSegments());
 	}
 	
-	Snake s = new Snake(Position.at(5,2)) {{
-		append(new Position(5,3));
-		append(new Position(5,4));
-		append(new Position(5,5));
-		append(new Position(5,6));
-	}};
-	
-	private void setPlaygroundSize(RootPanel playground) {
-		playground.setSize(fieldWidth*squareSize+"px", fieldHeght*squareSize+"px");
+	private void updatePlaygroundSize() {
+		int width = game.getHorizontalCellsCount()*squareSize;
+		int height = game.getVerticalCellsCount()*squareSize;
+		playground.setPixelSize(width, height);
 	}
 }
