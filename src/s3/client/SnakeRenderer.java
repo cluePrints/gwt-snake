@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class SnakeRenderer {
 	private RootPanel playground;
+	private String themeName = "theme1";
 	private String snakeSegmentImageFile = "20x20square.png";
 	private int segmentSizePx = 20;
 	private Map<Position, Image> sprites = new HashMap<Position, Image>();
@@ -20,7 +21,9 @@ public class SnakeRenderer {
 
 	public void renderCells(Collection<Position> cells) {
 		for (Position p : cells) {		
-			Image cell = new Image(snakeSegmentImageFile);
+			Image cell = new Image();
+			cell.setStylePrimaryName(themeName);
+			cell.addStyleDependentName("snakeSegment");
 			cell.setPixelSize(segmentSizePx, segmentSizePx);
 
 			Image oldCell = sprites.put(p, cell);

@@ -1,11 +1,28 @@
-/** Add css rules here for your application. */
-#playground {
+.theme1-playground {
 	left: 0;
 	top: 0;
 	background-color: #000000;
 	background-image:url("background2.gif");
 	z-index: 0;
 	position: absolute;
+}
+
+.theme1-snakeSegment {
+	background-image: url("20x20square.png");
+	background-repeat: none;
+}
+
+.theme2-playground {
+	left: 0;
+	top: 0;
+	background-color: #FF0000;
+	z-index: 0;
+	position: absolute;
+}
+
+.theme2-snakeSegment {
+	background-image: url("snake_segment.png");
+	background-repeat: none;
 }
 
 .background {
