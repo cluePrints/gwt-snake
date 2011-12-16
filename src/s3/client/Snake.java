@@ -6,8 +6,10 @@ import java.util.List;
 public class Snake {
 	private LinkedList<Position> segments = new LinkedList<Position>();
 	
-	public Snake(Position p) {
-		segments.addFirst(p);
+	public Snake(Position... positions) {
+		for (Position p : positions) {
+			append(p);
+		}
 	}
 	
 	public void moveTo(Direction direction) {
