@@ -110,7 +110,7 @@ public class MainView extends Composite {
 		return btnIncreaseWidth;
 	}
 	
-	public void renderSnakeSegments(Collection<Position> segments) {
-		renderer.renderRefreshWith(segments, SnakeRenderer.SNAKE);
+	public void renderSegments(Collection<Position> segments, String type) {
+		renderer.renderRefreshWith(segments, type);
 	}
 }

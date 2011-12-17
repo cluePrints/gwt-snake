@@ -28,7 +28,7 @@ public class GameStateTest {
 		Position bonusPosition = at(3,8);
 		Position expected = at(3+1,8+1);
 		state.snake = new Snake(at(1,1));
-		state.bonuses.put(bonusPosition, new Apple());
+		state.bonuses.put(bonusPosition, new Apple(null, null));
 		Position actual = state.latestFreeBottomRightPoint();
 		Assert.assertEquals(expected, actual);
 	}

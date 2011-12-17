@@ -14,6 +14,7 @@ public class Controller {
 		this.state = state;
 		this.view = view;
 		view.setController(this);
+		syncSizeWithView();
 	}
 	
 	public void speedChanged(GameSpeed speed) {

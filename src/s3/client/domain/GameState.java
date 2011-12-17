@@ -6,14 +6,17 @@ import java.util.HashSet;
 import java.util.Map;
 
 import s3.client.artifact.Artifact;
+import s3.client.artifact.ArtifactTracker;
 import s3.client.scoring.Scoring;
 
 public class GameState {
 	private int horizontalCellsCount = 20;
 	private int verticalCellsCount = 20;
 	private GameSpeed speed = GameSpeed.LOW;
-	private Direction snakeDirection = Direction.DOWN;	
+	private Direction snakeDirection;	
 	private Scoring scoring = new Scoring();
+	private ArtifactTracker artifacts = new ArtifactTracker();
+	private GameStatus status;
 	
 	Map<Position, Artifact> bonuses = new HashMap<Position, Artifact>();		
 	Snake snake;
@@ -83,6 +86,9 @@ public class GameState {
 	
 	public void reset() {
 		snake = new Snake(fieldCenter());
+		artifacts.clear();
+		snakeDirection = Direction.DOWN;
+		status = GameStatus.IN_PROGRESS;
 	}
 	
 	public Position getSnakeHead() {
@@ -103,5 +109,21 @@ public class GameState {
 	
 	public void setSpeed(GameSpeed speed) {
 		this.speed = speed;
+	}
+	
+	public ArtifactTracker getArtifacts() {
+		return artifacts;
+	}
+	
+	public GameStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(GameStatus status) {
+		this.status = status;
+	}
+	
+	public void setSnake(Snake snake) {
+		this.snake = snake;
 	}
 }

@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.UIObject;
 
 public class SnakeRenderer {
 	public static final String SNAKE = "snakeSegment";
+	public static final String APPLE = "apple";
+
 	
 	private AbsolutePanel playground;
 	private String themeName = "theme1";
@@ -57,6 +59,9 @@ public class SnakeRenderer {
 			Image cell = newImage(type);
 			
 			Sprite oldCell = drawnSprites.put(p, new Sprite(cell, type));
+			if (oldCell != null) {
+				System.out.println("Dropping "+oldCell);
+			}
 			removeFromTheField(oldCell);
 			
 			putAt(p, cell);
@@ -64,6 +69,7 @@ public class SnakeRenderer {
 	}
 	
 	void cleanCell(Position pos) {
+		System.out.println("Removing "+pos);
 		Sprite sprite = drawnSprites.get(pos);
 		removeFromTheField(sprite);
 	}
@@ -96,11 +102,20 @@ public class SnakeRenderer {
 	}
 
 	private void clearSegmentsNotIn(Collection<Position> newPositions, String type) {
-		Set<Position> segmentsToClean = new HashSet<Position>(drawnSprites.keySet());
+		Set<Position> segmentsToClean = new HashSet<Position>();
+		for (Map.Entry<Position, Sprite> e : drawnSprites.entrySet()) {
+			if (type.equals(e.getValue().type)) {
+				segmentsToClean.add(e.getKey());
+			}
+		}
+		
 		segmentsToClean.removeAll(newPositions);
 		for (Position segment : segmentsToClean) {
 			Sprite sprite = drawnSprites.get(segment);
 			if (sprite != null && type.equals(sprite.type)) {
+				if (type.equals(APPLE)) {
+					System.out.println("Dropping "+type+"@"+segment);
+				}
 				removeFromTheField(drawnSprites.remove(segment));
 			}
 		}

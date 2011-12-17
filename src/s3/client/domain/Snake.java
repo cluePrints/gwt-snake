@@ -19,6 +19,7 @@ public class Snake {
 		Position newHead = head.getAdjacentCellToThe(direction);
 		segments.addFirst(newHead);		
 		segments.removeLast();
+		System.out.println("Snake is at: "+newHead);
 	}
 	
 	public List<Position> getSegments() {
@@ -31,6 +32,7 @@ public class Snake {
 		} 
 		
 		segments.addFirst(pos);
+		System.out.println("Snake is now "+segments.size()+" long");
 	}
 	
 	public Position getHead() {

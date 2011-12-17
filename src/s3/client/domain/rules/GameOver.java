@@ -1,11 +1,22 @@
-package s3.client.domain;
+package s3.client.domain.rules;
 
+import s3.client.domain.GameState;
+import s3.client.domain.GameStatus;
+import s3.client.domain.Position;
+import s3.client.domain.Snake;
 
-public class Rules {
-	public boolean gameOver(GameState state) {
-		Snake snake = state.getSnake();
+public class GameOver implements Rule {
+	@Override
+	public void evaluate(GameState game) {
+		if (isOver(game)) {
+			game.setStatus(GameStatus.OVER);
+		}
+	}
+	
+	boolean isOver(GameState game) {
+		Snake snake = game.getSnake();
 		boolean bitesItself = snake.crossesItself();		
-		boolean leftTheBounds = leftTheBounds(state);
+		boolean leftTheBounds = leftTheBounds(game);
 		
 		return bitesItself || leftTheBounds;
 	}

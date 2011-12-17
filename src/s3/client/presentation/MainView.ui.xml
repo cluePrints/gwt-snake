@@ -1,13 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<g:AbsolutePanel>
-		<g:AbsolutePanel ui:field="playground"/>
+	<g:AbsolutePanel>		
 		<g:Button ui:field="btnIncreaseWidth" text="Width +"/>
 		<g:Button ui:field="btnDecreaseWidth" text="Width -"/>
 		<g:Button ui:field="btnDecreaseHeight" text="Height -"/>
 		<g:Button ui:field="btnIncreaseHeight" text="Height +"/>
 		<g:ListBox ui:field="speedChooser"/>
 		<g:ListBox ui:field="skinsChooser"/>
+		<g:AbsolutePanel ui:field="playground"/>
 	</g:AbsolutePanel>
 </ui:UiBinder> 

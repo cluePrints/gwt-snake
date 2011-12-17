@@ -4,8 +4,8 @@
 	background-image:url("images/bg4.jpg");
 	z-index: 1;
 	position: absolute;
-	border-image: url("images/bg5.jpg");
-	border-width: 20px;
+	border-image: url("images/fancy_border_1.png");
+	border-width: 15px;
 }
 
 .theme1-snakeSegment {
@@ -13,6 +13,13 @@
 	background-repeat: none;
 	z-index: 2;
 }
+
+.theme1-apple {
+	background-image: url("images/appleNice.gif");
+	background-repeat: none;
+	z-index: 2;
+}
+
 
 .theme2-playground {
 	left: 0;
@@ -28,6 +35,14 @@
 	background-image: url("images/snakeSegment2.png");
 	background-repeat: none;
 }
+
+
+.theme2-apple {
+	background-image: url("images/applePixely.gif");
+	background-repeat: none;
+	z-index: 2;
+}
+
 
 .background {
 	left: 0;
