@@ -1,7 +1,13 @@
 package s3.client.presentation;
 
+import static s3.client.domain.Direction.DOWN;
+import static s3.client.domain.Direction.LEFT;
+import static s3.client.domain.Direction.RIGHT;
+import static s3.client.domain.Direction.UP;
+
 import java.util.Collection;
 
+import s3.client.Controller;
 import s3.client.domain.Position;
 
 import com.google.gwt.core.client.GWT;
@@ -10,20 +16,18 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusWidget;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MainView extends Composite implements HasText {
+public class MainView extends Composite {
 	int squareSize = 20;	
 	SnakeRenderer renderer;
 	SkinsController skins;
+	Controller controller;
 	
 	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
 	interface MainViewUiBinder extends UiBinder<Widget, MainView> {}
@@ -37,25 +41,38 @@ public class MainView extends Composite implements HasText {
 			skinsChooser.addItem(id);
 		}
 	}
-
+	
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
+	
 	@UiField
-	Button button;
+	Button btnIncreaseWidth;
 	
 	@UiField
 	ListBox skinsChooser;
 	
 	@UiField
-	IntegerBox vSize;
-	
-	@UiField
-	IntegerBox hSize;
-	
-	@UiField
 	AbsolutePanel playground;
 
-	@UiHandler("button")
-	void onClick(ClickEvent e) {
-		Window.alert("Hello!");
+	@UiHandler("btnIncreaseWidth")
+	void onIncreaseWidth(ClickEvent e) {
+		controller.pushFieldBoundary(RIGHT);
+	}
+	
+	@UiHandler({"btnDecreaseWidth"})
+	void onDecreaseWidth(ClickEvent e) {
+		controller.pushFieldBoundary(LEFT);
+	}
+	
+	@UiHandler("btnIncreaseHeight")
+	void onIncreaseHeight(ClickEvent e) {
+		controller.pushFieldBoundary(DOWN);
+	}
+	
+	@UiHandler({"btnDecreaseHeight"})
+	void onDecreaseHeight(ClickEvent e) {
+		controller.pushFieldBoundary(UP);
 	}
 	
 	@UiHandler("skinsChooser")
@@ -63,22 +80,9 @@ public class MainView extends Composite implements HasText {
 		int selIdx = skinsChooser.getSelectedIndex();
 		skins.switchTo(selIdx);
 	}
+
 	
-	@UiHandler("skinsChooser")
-	void onManualSizeChange(ChangeEvent e) {
-		setPlaygroundSize(hSize.getValue(), vSize.getValue());
-	}
-
-
-	public void setText(String text) {
-		button.setText(text);
-	}
-
-	public String getText() {
-		return button.getText();
-	}
-	
-	public void setPlaygroundSize(int horizontalCells, int verticalCells) {
+	public void updatePlaygroundSize(int horizontalCells, int verticalCells) {
 		int width = horizontalCells * squareSize;
 		int height = verticalCells * squareSize;
 		playground.setPixelSize(width, height);
@@ -89,10 +93,10 @@ public class MainView extends Composite implements HasText {
 	}
 	
 	public FocusWidget getFocusWidget() {
-		return button;
+		return btnIncreaseWidth;
 	}
 	
 	public void renderSnakeSegments(Collection<Position> segments) {
 		renderer.renderRefreshWith(segments, SnakeRenderer.SNAKE);
-	}
+}
 }

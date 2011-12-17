@@ -1,23 +1,27 @@
 .theme1-playground {
 	left: 0;
 	top: 0;
-	background-image:url("images/bg1.png");
-	z-index: 15;
+	background-image:url("images/bg4.jpg");
+	z-index: 1;
 	position: absolute;
+	border-image: url("images/bg5.jpg");
+	border-width: 20px;
 }
 
 .theme1-snakeSegment {
 	background-image: url("images/snakeSegment1.png");
 	background-repeat: none;
-	z-index: 1;
+	z-index: 2;
 }
 
 .theme2-playground {
 	left: 0;
 	top: 0;
-	background-image:url("images/bg2.png");
+	background-image:url("images/bg5.jpg");
 	z-index: 0;
 	position: absolute;
+	border-style: dotted;
+	border-width: 5px; 
 }
 
 .theme2-snakeSegment {

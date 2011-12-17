@@ -60,15 +60,24 @@ public class GameState {
 				maxY = p.getY();
 			}
 		}
-		return Position.at(maxX, maxY);
+		return Position.at(maxX+1, maxY+1);
 	}
 	
 	public Snake getSnake() {
 		return snake;
 	}
 	
-	public void resize(int desiredWidth, int desiredHeight) {
-		
+	public void tryResize(int desiredWidth, int desiredHeight) {		
+		Position leastAllowed = latestFreeBottomRightPoint();
+		System.out.println("Trying to resize to "+desiredWidth+","+desiredHeight+" allowed"+leastAllowed);
+		if (desiredWidth < leastAllowed.getX()) {
+			desiredWidth = leastAllowed.getX();
+		}
+		if (desiredHeight < leastAllowed.getY()) {
+			desiredHeight = leastAllowed.getY();
+		}
+		horizontalCellsCount = desiredWidth;
+		verticalCellsCount = desiredHeight;
 	}
 	
 	public void reset() {
