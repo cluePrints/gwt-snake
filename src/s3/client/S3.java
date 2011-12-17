@@ -41,7 +41,7 @@ public class S3 implements EntryPoint {
 				tick();				
 			}
 		};
-		t.scheduleRepeating(500);
+		t.run();
 			
 		focusWidget.addKeyDownHandler(new KeyDownHandler() {			
 			@Override
@@ -58,6 +58,7 @@ public class S3 implements EntryPoint {
 		if (rules.gameOver(game)) {
 			game.reset();
 		}
-		view.renderSnakeSegments(game.getSnakeSegments());		
+		view.renderSnakeSegments(game.getSnakeSegments());
+		t.schedule(game.getSpeed().getTimeQuant());
 	}
 }

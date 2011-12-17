@@ -7,11 +7,7 @@
 		<g:Button ui:field="btnDecreaseWidth" text="Width -"/>
 		<g:Button ui:field="btnDecreaseHeight" text="Height -"/>
 		<g:Button ui:field="btnIncreaseHeight" text="Height +"/>
-		<g:Button ui:field="btnIncreaseSpeed" text="Speed +"/>
-		<g:Button ui:field="btnDecreaseSpeed" text="Speed -"/>
-		<g:VerticalPanel ui:field="info">
-			<g:Label text="Choose the skin:"/>
-			<g:ListBox ui:field="skinsChooser"/>
-		</g:VerticalPanel>
+		<g:ListBox ui:field="speedChooser"/>
+		<g:ListBox ui:field="skinsChooser"/>
 	</g:AbsolutePanel>
 </ui:UiBinder> 

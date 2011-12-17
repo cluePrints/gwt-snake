@@ -8,6 +8,7 @@ import static s3.client.domain.Direction.UP;
 import java.util.Collection;
 
 import s3.client.Controller;
+import s3.client.domain.GameSpeed;
 import s3.client.domain.Position;
 
 import com.google.gwt.core.client.GWT;
@@ -40,11 +41,18 @@ public class MainView extends Composite {
 		for (String id : skins.getIds()) {
 			skinsChooser.addItem(id);
 		}
+		
+		for (GameSpeed speed : GameSpeed.values()) {
+			speedChooser.addItem(speed.name());
+		}
 	}
 	
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
+	
+	@UiField
+	ListBox speedChooser;
 	
 	@UiField
 	Button btnIncreaseWidth;
@@ -81,6 +89,12 @@ public class MainView extends Composite {
 		skins.switchTo(selIdx);
 	}
 
+	@UiHandler("speedChooser")
+	void onSpeedChange(ChangeEvent e) {
+		int selIdx = speedChooser.getSelectedIndex();
+		GameSpeed speed = GameSpeed.values()[selIdx];
+		controller.speedChanged(speed);		
+	}
 	
 	public void updatePlaygroundSize(int horizontalCells, int verticalCells) {
 		int width = horizontalCells * squareSize;
@@ -98,5 +112,5 @@ public class MainView extends Composite {
 	
 	public void renderSnakeSegments(Collection<Position> segments) {
 		renderer.renderRefreshWith(segments, SnakeRenderer.SNAKE);
-}
+	}
 }

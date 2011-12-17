@@ -1,6 +1,7 @@
 package s3.client;
 
 import s3.client.domain.Direction;
+import s3.client.domain.GameSpeed;
 import s3.client.domain.GameState;
 import s3.client.presentation.MainView;
 
@@ -15,6 +16,10 @@ public class Controller {
 		view.setController(this);
 	}
 	
+	public void speedChanged(GameSpeed speed) {
+		state.setSpeed(speed);
+	}
+	
 	public void pushFieldBoundary(Direction direction) {
 		int width = state.getHorizontalCellsCount();
 		int height = state.getVerticalCellsCount();
@@ -25,6 +30,8 @@ public class Controller {
 		
 		syncSizeWithView();
 	}
+	
+	
 	private void syncSizeWithView() {
 		view.updatePlaygroundSize(state.getHorizontalCellsCount(), state.getVerticalCellsCount());
 	}

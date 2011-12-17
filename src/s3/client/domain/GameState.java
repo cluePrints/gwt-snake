@@ -11,6 +11,7 @@ import s3.client.scoring.Scoring;
 public class GameState {
 	private int horizontalCellsCount = 20;
 	private int verticalCellsCount = 20;
+	private GameSpeed speed = GameSpeed.LOW;
 	private Direction snakeDirection = Direction.DOWN;	
 	private Scoring scoring = new Scoring();
 	
@@ -94,5 +95,13 @@ public class GameState {
 	
 	private Position fieldCenter() {
 		return Position.at(horizontalCellsCount/2, verticalCellsCount/2);
+	}
+	
+	public GameSpeed getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(GameSpeed speed) {
+		this.speed = speed;
 	}
 }
