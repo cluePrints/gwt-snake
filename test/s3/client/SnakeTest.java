@@ -3,6 +3,10 @@ package s3.client;
 import org.junit.Assert;
 import org.junit.Test;
 
+import s3.client.domain.Direction;
+import s3.client.domain.Position;
+import s3.client.domain.Snake;
+
 public class SnakeTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void shouldRejectToAddNonAdjacentCells() {

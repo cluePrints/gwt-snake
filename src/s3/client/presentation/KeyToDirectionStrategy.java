@@ -1,19 +1,21 @@
-package s3.client;
+package s3.client.presentation;
 
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_DOWN;
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_LEFT;
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_RIGHT;
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_UP;
-import static s3.client.Direction.DOWN;
-import static s3.client.Direction.LEFT;
-import static s3.client.Direction.RIGHT;
-import static s3.client.Direction.UP;
+import static s3.client.domain.Direction.DOWN;
+import static s3.client.domain.Direction.LEFT;
+import static s3.client.domain.Direction.RIGHT;
+import static s3.client.domain.Direction.UP;
 
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import s3.client.domain.Direction;
 
 
 public class KeyToDirectionStrategy {

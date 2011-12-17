@@ -1,9 +1,11 @@
 package s3.client;
 
 import junit.framework.Assert;
-import static s3.client.Direction.*;
+import static s3.client.domain.Direction.*;
 
 import org.junit.Test;
+
+import s3.client.domain.Position;
 
 public class PositionTest {
 	@Test

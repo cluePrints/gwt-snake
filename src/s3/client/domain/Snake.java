@@ -1,8 +1,9 @@
-package s3.client;
+package s3.client.domain;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class Snake {
 	private LinkedList<Position> segments = new LinkedList<Position>();

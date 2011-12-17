@@ -1,9 +1,14 @@
-package s3.client;
+package s3.client.domain;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-import static s3.client.Position.*;
+
+import s3.client.domain.GameState;
+import s3.client.domain.Position;
+import s3.client.domain.Rules;
+import s3.client.domain.Snake;
+import static s3.client.domain.Position.*;
 
 public class RulesTest {
 	Rules rules = new Rules();

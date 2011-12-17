@@ -1,9 +1,14 @@
-package s3.client;
+package s3.client.domain;
 
-import static s3.client.Position.at;
+import static s3.client.domain.Position.at;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import s3.client.artifact.Apple;
+import s3.client.domain.GameState;
+import s3.client.domain.Position;
+import s3.client.domain.Snake;
 
 public class GameStateTest {
 	@Test

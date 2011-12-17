@@ -1,6 +1,8 @@
-package s3.client;
+package s3.client.presentation;
 
 import java.util.Collection;
+
+import s3.client.domain.Position;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -91,6 +93,6 @@ public class MainView extends Composite implements HasText {
 	}
 	
 	public void renderSnakeSegments(Collection<Position> segments) {
-		renderer.renderRefreshWith(segments);
+		renderer.renderRefreshWith(segments, SnakeRenderer.SNAKE);
 	}
 }

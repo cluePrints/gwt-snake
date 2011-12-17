@@ -1,5 +1,11 @@
 package s3.client;
 
+import s3.client.domain.Direction;
+import s3.client.domain.GameState;
+import s3.client.domain.Rules;
+import s3.client.presentation.KeyToDirectionStrategy;
+import s3.client.presentation.MainView;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -51,8 +57,8 @@ public class S3 implements EntryPoint {
 	private void tick() {
 		game.moveSnake();
 		if (rules.gameOver(game)) {
-			t.cancel();
 			Window.alert("Oops");
+			game.reset();
 		}
 		view.renderSnakeSegments(game.getSnakeSegments());		
 	}

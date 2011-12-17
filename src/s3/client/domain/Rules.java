@@ -1,4 +1,5 @@
-package s3.client;
+package s3.client.domain;
+
 
 public class Rules {
 	public boolean gameOver(GameState state) {

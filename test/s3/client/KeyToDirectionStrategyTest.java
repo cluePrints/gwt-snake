@@ -3,6 +3,9 @@ package s3.client;
 import org.junit.Assert;
 import org.junit.Test;
 
+import s3.client.domain.Direction;
+import s3.client.presentation.KeyToDirectionStrategy;
+
 import com.google.gwt.event.dom.client.KeyCodes;
 
 public class KeyToDirectionStrategyTest {
