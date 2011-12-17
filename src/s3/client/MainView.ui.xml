@@ -9,7 +9,17 @@
 	<g:AbsolutePanel>
 		<g:AbsolutePanel ui:field="playground"/>
 		<g:VerticalPanel ui:field="info">
+			<g:Label text="Choose the skin:"/>
 			<g:ListBox ui:field="skinsChooser"/>
+			<g:HorizontalPanel>
+				<g:Label text="width:"/>
+				<g:IntegerBox ui:field="hSize" text="20" />
+			</g:HorizontalPanel>
+			<g:HorizontalPanel>
+				<g:Label text="height:"/>
+				<g:IntegerBox ui:field="vSize" text="20" />
+			</g:HorizontalPanel>
+			<g:Button ui:field="applySize" text="Change size"/>
 			<g:Button ui:field="button"/>
 		</g:VerticalPanel>
 	</g:AbsolutePanel>

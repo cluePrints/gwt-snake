@@ -1,27 +1,27 @@
 .theme1-playground {
 	left: 0;
 	top: 0;
-	background-color: #000000;
-	background-image:url("background2.gif");
-	z-index: 0;
+	background-image:url("images/bg1.png");
+	z-index: 15;
 	position: absolute;
 }
 
 .theme1-snakeSegment {
-	background-image: url("20x20square.png");
+	background-image: url("images/snakeSegment1.png");
 	background-repeat: none;
+	z-index: 1;
 }
 
 .theme2-playground {
 	left: 0;
 	top: 0;
-	background-color: #FF0000;
+	background-image:url("images/bg2.png");
 	z-index: 0;
 	position: absolute;
 }
 
 .theme2-snakeSegment {
-	background-image: url("snake_segment.png");
+	background-image: url("images/snakeSegment2.png");
 	background-repeat: none;
 }
 

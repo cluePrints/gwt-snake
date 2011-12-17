@@ -1,5 +1,6 @@
 package s3.client;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,8 +32,13 @@ public class Snake {
 		segments.addFirst(pos);
 	}
 	
-	public Position getLast() {
-		return segments.getLast();
+	public Position getHead() {
+		return segments.getFirst();
+	}
+	
+	public boolean crossesItself() {
+		HashSet<Position> segmentsNoDups = new HashSet<Position>(segments);
+		return segmentsNoDups.size() != segments.size();
 	}
 	
 	private boolean okToAdd(Position pos) {

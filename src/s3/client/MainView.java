@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -23,9 +24,7 @@ public class MainView extends Composite implements HasText {
 	SkinsController skins;
 	
 	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
-
-	interface MainViewUiBinder extends UiBinder<Widget, MainView> {
-	}
+	interface MainViewUiBinder extends UiBinder<Widget, MainView> {}
 
 	public MainView() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -44,6 +43,12 @@ public class MainView extends Composite implements HasText {
 	ListBox skinsChooser;
 	
 	@UiField
+	IntegerBox vSize;
+	
+	@UiField
+	IntegerBox hSize;
+	
+	@UiField
 	AbsolutePanel playground;
 
 	@UiHandler("button")
@@ -52,9 +57,14 @@ public class MainView extends Composite implements HasText {
 	}
 	
 	@UiHandler("skinsChooser")
-	void onClick(ChangeEvent e) {
+	void onSkinsChange(ChangeEvent e) {
 		int selIdx = skinsChooser.getSelectedIndex();
 		skins.switchTo(selIdx);
+	}
+	
+	@UiHandler("skinsChooser")
+	void onManualSizeChange(ChangeEvent e) {
+		setPlaygroundSize(hSize.getValue(), vSize.getValue());
 	}
 
 

@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -13,6 +14,8 @@ public class S3 implements EntryPoint {
 	
 	MainView view = new MainView();
 	GameState game = new GameState();
+	Rules rules = new Rules();
+	Timer t;
 	
 	public void onModuleLoad() {
 		RootPanel.get().add(view);
@@ -26,7 +29,7 @@ public class S3 implements EntryPoint {
 		focusWidget = view.getFocusWidget();
 		playground.add(focusWidget);
 		
-		final Timer t = new Timer() {			
+		t = new Timer() {			
 			@Override
 			public void run() {
 				focusWidget.setFocus(true);
@@ -47,6 +50,10 @@ public class S3 implements EntryPoint {
 	
 	private void tick() {
 		game.moveSnake();
-		view.renderSnakeSegments(game.getSnakeSegments());
+		if (rules.gameOver(game)) {
+			t.cancel();
+			Window.alert("Oops");
+		}
+		view.renderSnakeSegments(game.getSnakeSegments());		
 	}
 }

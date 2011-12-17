@@ -13,10 +13,6 @@ public class GameState {
 	Map<Position, Artifact> bonuses = new HashMap<Position, Artifact>();		
 	Snake snake = new Snake(fieldCenter());
 	
-	public Position lastSnakeCell() {
-		return snake.getLast();
-	}
-	
 	public void moveSnake() {
 		snake.moveTo(snakeDirection);
 	}
@@ -59,8 +55,16 @@ public class GameState {
 		return Position.at(maxX, maxY);
 	}
 	
+	public Snake getSnake() {
+		return snake;
+	}
+	
 	public void resize(int desiredWidth, int desiredHeight) {
 		
+	}
+	
+	public Position getSnakeHead() {
+		return snake.getHead();
 	}
 	
 	private Position fieldCenter() {
