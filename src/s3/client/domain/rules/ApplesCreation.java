@@ -7,6 +7,7 @@ import s3.client.artifact.ArtifactTracker;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
 import s3.client.domain.Snake;
+import s3.client.scoring.Scoring;
 
 public class ApplesCreation implements Rule {	
 	private Random random = new Random();
@@ -25,7 +26,8 @@ public class ApplesCreation implements Rule {
 		}
 		
 		ArtifactTracker artifacts = state.getArtifacts();
-		artifacts.tryPutAt(newPos, new Apple(newPos, artifacts));
+		Scoring scoring = state.getScoring();
+		artifacts.tryPutAt(newPos, new Apple(newPos, scoring));
 	}
 
 	private Position inventRandomPos(GameState state) {

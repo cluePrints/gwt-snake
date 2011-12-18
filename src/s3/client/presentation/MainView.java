@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -62,6 +63,12 @@ public class MainView extends Composite {
 	
 	@UiField
 	AbsolutePanel playground;
+	
+	@UiField
+	Label currScoreLabel;
+	
+	@UiField
+	Label maxScoreLabel;
 
 	@UiHandler("btnIncreaseWidth")
 	void onIncreaseWidth(ClickEvent e) {
@@ -112,5 +119,13 @@ public class MainView extends Composite {
 	
 	public void renderSegments(Collection<Position> segments, String type) {
 		renderer.renderRefreshWith(segments, type);
+	}
+	
+	public void reflectMaxScore(int score) {
+		maxScoreLabel.setText(String.valueOf(score));
+	}
+	
+	public void reflectCurrentScore(int score) {
+		currScoreLabel.setText(String.valueOf(score));
 	}
 }

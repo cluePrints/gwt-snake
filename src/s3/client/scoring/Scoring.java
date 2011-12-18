@@ -8,4 +8,19 @@ public class Scoring {
 	public void increase() {
 		currentScore += strategy.points();
 	}
+	
+	public int getCurrentScore() {
+		return currentScore;
+	}
+	
+	public int getBestScore() {
+		return bestScore;
+	}
+	
+	public void gameOver() {
+		if (currentScore > bestScore) {
+			bestScore = currentScore;
+		}
+		currentScore = 0;
+	}
 }

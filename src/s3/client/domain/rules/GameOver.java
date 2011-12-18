@@ -10,6 +10,7 @@ public class GameOver implements Rule {
 	public void evaluate(GameState game) {
 		if (isOver(game)) {
 			game.setStatus(GameStatus.OVER);
+			game.getScoring().gameOver();
 		}
 	}
 	

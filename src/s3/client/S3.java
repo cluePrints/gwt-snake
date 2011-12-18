@@ -16,6 +16,7 @@ import s3.client.domain.rules.Rules;
 import s3.client.presentation.KeyToDirectionStrategy;
 import s3.client.presentation.MainView;
 import s3.client.presentation.SnakeRenderer;
+import s3.client.scoring.Scoring;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -96,6 +97,10 @@ public class S3 implements EntryPoint {
 		}
 		
 		view.renderSegments(game.getSnakeSegments(), SnakeRenderer.SNAKE);
+		
+		Scoring scoring = game.getScoring();
+		view.reflectCurrentScore(scoring.getCurrentScore());
+		view.reflectMaxScore(scoring.getBestScore());		
 		
 		t.schedule(game.getSpeed().getTimeQuant());
 		

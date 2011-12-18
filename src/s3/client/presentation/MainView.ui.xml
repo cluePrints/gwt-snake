@@ -2,12 +2,20 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:AbsolutePanel>		
-		<g:Button ui:field="btnIncreaseWidth" text="Width +"/>
-		<g:Button ui:field="btnDecreaseWidth" text="Width -"/>
-		<g:Button ui:field="btnDecreaseHeight" text="Height -"/>
-		<g:Button ui:field="btnIncreaseHeight" text="Height +"/>
-		<g:ListBox ui:field="speedChooser"/>
-		<g:ListBox ui:field="skinsChooser"/>
+		<g:HorizontalPanel>
+			<g:Button ui:field="btnIncreaseWidth" text="Width +"/>
+			<g:Button ui:field="btnDecreaseWidth" text="Width -"/>
+			<g:Button ui:field="btnDecreaseHeight" text="Height -"/>
+			<g:Button ui:field="btnIncreaseHeight" text="Height +"/>
+			<g:ListBox ui:field="speedChooser"/>
+			<g:ListBox ui:field="skinsChooser"/>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel>
+			<g:Label text="Score:"/><g:Label ui:field="currScoreLabel"/>
+		</g:HorizontalPanel>
+		<g:HorizontalPanel>
+			<g:Label text="Highest:"/><g:Label ui:field="maxScoreLabel"/>
+		</g:HorizontalPanel>
 		<g:AbsolutePanel ui:field="playground"/>
 	</g:AbsolutePanel>
 </ui:UiBinder> 
