@@ -5,7 +5,7 @@ import s3.client.domain.GameStatus;
 import s3.client.domain.Position;
 import s3.client.domain.Snake;
 
-public class GameOver implements Rule {
+class GameOver implements Rule {
 	@Override
 	public void evaluate(GameState game) {
 		if (isOver(game)) {

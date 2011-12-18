@@ -1,5 +1,5 @@
 package s3.client.scoring;
 
-interface ScoringStrategy {
+public interface ScoringStrategy {
 	int points();
 }

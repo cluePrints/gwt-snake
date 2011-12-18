@@ -8,6 +8,7 @@ import static s3.client.domain.Direction.UP;
 import java.util.Collection;
 
 import s3.client.Controller;
+import s3.client.domain.CellContent;
 import s3.client.domain.GameSpeed;
 import s3.client.domain.Position;
 
@@ -25,7 +26,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MainView extends Composite {
+public class MainView extends Composite implements View {
 	int squareSize = 20;	
 	SnakeRenderer renderer;
 	SkinsController skins;
@@ -48,6 +49,10 @@ public class MainView extends Composite {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see s3.client.presentation.View#setController(s3.client.Controller)
+	 */
+	@Override
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
@@ -102,7 +107,8 @@ public class MainView extends Composite {
 		GameSpeed speed = GameSpeed.values()[selIdx];
 		controller.speedChanged(speed);		
 	}
-	
+
+	@Override
 	public void updatePlaygroundSize(int horizontalCells, int verticalCells) {
 		int width = horizontalCells * squareSize;
 		int height = verticalCells * squareSize;
@@ -117,7 +123,8 @@ public class MainView extends Composite {
 		return btnIncreaseWidth;
 	}
 	
-	public void renderSegments(Collection<Position> segments, String type) {
+	@Override
+	public void renderSegments(Collection<Position> segments, CellContent type) {
 		renderer.renderRefreshWith(segments, type);
 	}
 	

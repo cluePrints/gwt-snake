@@ -1,21 +1,15 @@
 package s3.client;
 
-import static s3.client.domain.GameStatus.*;
-
-import java.util.Collection;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
+import static s3.client.domain.GameStatus.IN_PROGRESS;
+import static s3.client.domain.GameStatus.OVER;
+import static s3.client.domain.GameStatus.PAUSE;
+import s3.client.domain.CellContent;
 import s3.client.domain.Direction;
 import s3.client.domain.GameState;
-import s3.client.domain.GameStatus;
-import s3.client.domain.Position;
 import s3.client.domain.rules.Rule;
 import s3.client.domain.rules.Rules;
 import s3.client.presentation.KeyToDirectionStrategy;
 import s3.client.presentation.MainView;
-import s3.client.presentation.SnakeRenderer;
 import s3.client.scoring.Scoring;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -89,14 +83,8 @@ public class S3 implements EntryPoint {
 			view.getPlayground().clear();
 		}
 		
-		Set<Entry<String, Collection<Position>>> byType = game.getArtifacts().byType().entrySet();
-		for (Map.Entry<String, Collection<Position>> e : byType) {
-			String type = e.getKey();
-			Collection<Position> elements = e.getValue();
-			view.renderSegments(elements, type);
-		}
-		
-		view.renderSegments(game.getSnakeSegments(), SnakeRenderer.SNAKE);
+		controller.renderArtifacts();		
+		view.renderSegments(game.getSnakeSegments(), CellContent.SNAKE);
 		
 		Scoring scoring = game.getScoring();
 		view.reflectCurrentScore(scoring.getCurrentScore());
@@ -105,4 +93,5 @@ public class S3 implements EntryPoint {
 		t.schedule(game.getSpeed().getTimeQuant());
 		
 	}
+
 }

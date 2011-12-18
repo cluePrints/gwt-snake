@@ -12,7 +12,8 @@ public class Rules implements Rule{
 		List<Rule> list = new LinkedList<Rule>();		
 		list.add(new EatOrMove());
 		list.add(new GameOver());
-		list.add(new ApplesCreation());
+		list.add(new AppleCreation());
+		list.add(new StrawberryCreation());
 		
 		return new Rules(list);
 	}

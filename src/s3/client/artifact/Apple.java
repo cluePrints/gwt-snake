@@ -1,5 +1,6 @@
 package s3.client.artifact;
 
+import s3.client.domain.CellContent;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
 import s3.client.scoring.Scoring;
@@ -17,11 +18,17 @@ public class Apple implements Artifact {
 	@Override
 	public void reflectConsumption(GameState state) {
 		state.getSnake().append(position);
+		state.getArtifacts().removeAt(position);
 		scoring.increase();
 	}
 	
 	@Override
-	public String type() {
-		return "apple";
+	public CellContent type() {
+		return CellContent.APPLE;
+	}
+	
+	@Override
+	public boolean causesGrowth() {
+		return true;
 	}
 }

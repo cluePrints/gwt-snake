@@ -6,16 +6,16 @@ import s3.client.domain.Direction;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
 
-public class EatOrMove implements Rule {
+class EatOrMove implements Rule {
 	@Override
 	public void evaluate(GameState game) {				
-		boolean ate = tryConsume(game);
-		if (!ate) {
+		boolean hasGrown = tryEatAndGrow(game);
+		if (!hasGrown) {
 			game.moveSnake();
 		}
 	}
 
-	public boolean tryConsume(GameState state) {
+	public boolean tryEatAndGrow(GameState state) {
 		ArtifactTracker artifacts = state.getArtifacts();
 		Direction direction = state.getSnakeDirection();
 		
@@ -27,6 +27,6 @@ public class EatOrMove implements Rule {
 		
 		artifacts.removeAt(headFuture);
 		target.reflectConsumption(state);
-		return true;
+		return target.causesGrowth();
 	}
 }

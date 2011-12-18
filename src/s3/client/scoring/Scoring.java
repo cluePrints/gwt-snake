@@ -23,4 +23,12 @@ public class Scoring {
 		}
 		currentScore = 0;
 	}
+	
+	public ScoringStrategy getStrategy() {
+		return strategy;
+	}
+	
+	public void setStrategy(ScoringStrategy strategy) {
+		this.strategy = strategy;
+	}
 }

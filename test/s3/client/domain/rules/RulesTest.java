@@ -1,7 +1,6 @@
 package s3.client.domain.rules;
 
 import static s3.client.domain.Position.at;
-import static s3.client.domain.GameStatus.*;
 import junit.framework.Assert;
 
 import org.junit.Test;
