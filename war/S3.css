@@ -20,12 +20,18 @@
 	z-index: 2;
 }
 
+.theme1-strawberry {
+	background-image: url("images/strawberry1.png");
+	background-repeat: none;
+	z-index: 2;
+}
+
 
 .theme2-playground {
 	left: 0;
 	top: 0;
-	background-image:url("images/bg5.jpg");
 	z-index: 0;
+	background-image:url("images/bg5.jpg");
 	position: absolute;
 	border-style: dotted;
 	border-width: 5px; 
@@ -43,6 +49,11 @@
 	z-index: 2;
 }
 
+.theme2-strawberry {
+	background-image: url("images/strawberry2.gif");
+	background-repeat: none;
+	z-index: 2;
+}
 
 .background {
 	left: 0;
