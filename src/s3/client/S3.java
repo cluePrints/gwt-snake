@@ -31,6 +31,8 @@ public class S3 implements EntryPoint {
 			};
 		};
 		focusTimer.scheduleRepeating(500);
+		
+		controller.setClock(clock);
 		clock.resume();
 	}
 }
