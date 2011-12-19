@@ -29,11 +29,11 @@ public class StrawberryTest{
 		Scoring scoring = game.getScoring();
 		
 		Strawberry s = new Strawberry(Position.at(11,10), new J2SEPlatform());
-		s.effectPeriodSec = 1;
+		s.effectPeriodMs = 1;
 		
 		s.reflectConsumption(game);
 		
-		Thread.sleep(1200);
+		Thread.sleep(50);
 		scoring.increase();
 		
 		Assert.assertEquals(1, scoring.getCurrentScore());		

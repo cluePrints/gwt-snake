@@ -1,4 +1,4 @@
-package s3.client;
+package s3.client.domain;
 
 import junit.framework.Assert;
 import static s3.client.domain.Direction.*;

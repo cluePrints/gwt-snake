@@ -1,4 +1,4 @@
-package s3.client;
+package s3.client.controller;
 
 import org.junit.Assert;
 import org.junit.Test;

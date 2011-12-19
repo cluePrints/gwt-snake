@@ -9,7 +9,7 @@ import s3.client.scoring.Scoring;
 import s3.client.scoring.ScoringStrategy;
 
 public class Strawberry implements Artifact {
-	int effectPeriodSec = 15;
+	int effectPeriodMs = 15*1000;
 	private Position position;
 	private Platform platform;
 	private int multiplier = 2;
@@ -46,8 +46,7 @@ public class Strawberry implements Artifact {
 
 	private void sheduleStrategyRestore(Scoring scoring) {
 		Runnable task = revertStrategyTask(scoring);
-		int delayMs = effectPeriodSec * 1000;
-		platform.scheduleLater(task, delayMs);
+		platform.scheduleLater(task, effectPeriodMs);
 	}
 
 	private Runnable revertStrategyTask(final Scoring scoring) {

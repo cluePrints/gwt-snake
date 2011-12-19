@@ -11,7 +11,7 @@ public enum GameSpeed {
 		this.timeQuant = timeQuant;
 	}
 	
-	public int getTimeQuant() {
+	public int getTimeQuantMs() {
 		return timeQuant;
 	}
 }
