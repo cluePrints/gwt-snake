@@ -9,7 +9,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>S3.html</welcome-file>
+    <welcome-file>Snake.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
