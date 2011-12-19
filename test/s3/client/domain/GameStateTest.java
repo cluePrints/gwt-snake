@@ -23,6 +23,19 @@ public class GameStateTest {
 	}
 	
 	@Test
+	public void shouldNotCoverTheSnakeByTheBoundOnResize() {
+		GameState state = new GameState();
+		state.snake = new Snake(at(6,7));
+		
+		state.tryResize(5,6);
+		
+		int width = state.getHorizontalCellsCount();
+		int height = state.getVerticalCellsCount();
+		Assert.assertEquals(7, width);
+		Assert.assertEquals(8, height);
+	}
+	
+	@Test
 	public void shouldNotMakeBonusesLeaveTheFieldDueToResize() {
 		GameState state = new GameState();
 		Position bonusPosition = at(3,8);

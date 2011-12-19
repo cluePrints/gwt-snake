@@ -8,6 +8,7 @@ public class Clock {
 	private GameState game;
 	private Platform platform;
 	private boolean paused;
+	
 	public Clock(Controller controller, GameState game, Platform platform) {
 		super();
 		this.controller = controller;

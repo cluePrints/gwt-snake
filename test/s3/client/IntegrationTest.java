@@ -1,5 +1,8 @@
 package s3.client;
 
+import static s3.client.domain.Direction.DOWN;
+import static s3.client.domain.Direction.LEFT;
+import static s3.client.domain.Direction.UP;
 import static s3.client.domain.Position.at;
 import junit.framework.Assert;
 
@@ -11,14 +14,11 @@ import s3.client.artifact.Strawberry;
 import s3.client.controller.Controller;
 import s3.client.domain.Direction;
 import s3.client.domain.GameState;
-import s3.client.domain.GameStatus;
 import s3.client.domain.Position;
 import s3.client.domain.Snake;
 import s3.client.platform.J2SEPlatform;
 import s3.client.platform.Platform;
 import s3.client.presentation.View;
-
-import com.google.gwt.event.dom.client.KeyCodes;
 
 public class IntegrationTest {
 	Position snakePos = at(2,2);
@@ -50,15 +50,15 @@ public class IntegrationTest {
 	}
 
 	private void checkConsumingAppleAfterStrawberry() {
-		controller.onKeyDown(KeyCodes.KEY_LEFT);
+		controller.onDirectionChange(LEFT);
 		controller.onGameClockTick();		
 		Assert.assertEquals(at(2, 3), game.getSnakeHead());
 		Assert.assertEquals(game.getScoring().getCurrentScore(), 2);
 	}
 
 	private void checkStrawberryConsumption() {
-		controller.onKeyDown(KeyCodes.KEY_UP);
-		controller.onKeyDown(KeyCodes.KEY_DOWN);
+		controller.onDirectionChange(UP);
+		controller.onDirectionChange(DOWN);
 		controller.onGameClockTick();		
 		Assert.assertEquals(at(3, 3), game.getSnakeHead());
 		Assert.assertEquals(game.getScoring().getCurrentScore(), 0);

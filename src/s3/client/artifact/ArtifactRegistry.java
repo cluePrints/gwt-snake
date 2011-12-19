@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import s3.client.domain.CellContent;
 import s3.client.domain.Position;
 
-public class ArtifactTracker {
+public class ArtifactRegistry {
 	private Map<Position, Artifact> artifacts = new HashMap<Position, Artifact>();
 	
 	public Map<CellContent, Collection<Position>> byType() {
@@ -34,6 +34,27 @@ public class ArtifactTracker {
 			}
 		}
 	}
+	
+	public Artifact getArtifactAt(Position p) {
+		return artifacts.get(p);
+	}
+	
+	public void removeAt(Position p) {
+		artifacts.remove(p);
+	}
+	
+	public void tryPutAt(Position p, Artifact newOne) {
+		Artifact existing = artifacts.get(p);
+		if (existing != null)
+			return;
+		
+		artifacts.put(p, newOne);
+	}
+	
+	public void clear() {
+		artifacts.clear();
+	}
+	
 
 	private Collection<Position> getOrCreate(
 			Map<CellContent, Collection<Position>> result, CellContent type) {
@@ -43,27 +64,5 @@ public class ArtifactTracker {
 			result.put(type, vals);
 		}
 		return vals;
-	}
-	
-	public Artifact getArtifactAt(Position p) {
-		return artifacts.get(p);
-	}
-	
-	public void removeAt(Position p) {
-		System.out.println("Removing at: "+p);
-		artifacts.remove(p);
-	}
-	
-	public void tryPutAt(Position p, Artifact newOne) {
-		Artifact existing = artifacts.get(p);
-		if (existing != null)
-			return;
-		
-		System.out.println("New artifact at: "+p);
-		artifacts.put(p, newOne);
-	}
-	
-	public void clear() {
-		artifacts.clear();
 	}
 }

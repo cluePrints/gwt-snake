@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import s3.client.artifact.Artifact;
-import s3.client.artifact.ArtifactTracker;
+import s3.client.artifact.ArtifactRegistry;
 import s3.client.scoring.Scoring;
 
 public class GameState {
@@ -15,7 +15,7 @@ public class GameState {
 	private GameSpeed speed = GameSpeed.LOW;
 	private Direction snakeDirection;
 	private Scoring scoring = new Scoring();
-	private ArtifactTracker artifacts = new ArtifactTracker();
+	private ArtifactRegistry artifacts = new ArtifactRegistry();
 	private GameStatus status;
 
 	Map<Position, Artifact> bonuses = new HashMap<Position, Artifact>();
@@ -72,17 +72,16 @@ public class GameState {
 	}
 
 	public void tryResize(int desiredWidth, int desiredHeight) {
-		Position leastAllowed = latestFreeBottomRightPoint();
-		System.out.println("Trying to resize to " + desiredWidth + ","
-				+ desiredHeight + " allowed" + leastAllowed);
-		if (desiredWidth < leastAllowed.getX()) {
-			desiredWidth = leastAllowed.getX();
-		}
-		if (desiredHeight < leastAllowed.getY()) {
-			desiredHeight = leastAllowed.getY();
-		}
-		horizontalCellsCount = desiredWidth;
-		verticalCellsCount = desiredHeight;
+		Position upperBound = latestFreeBottomRightPoint();
+		int width = Math.max(desiredWidth, upperBound.getX());
+		int height = Math.max(desiredHeight, upperBound.getY());
+		
+		Position lowerBound = Position.at(5, 5);
+		width = Math.max(width, lowerBound.getX());
+		height = Math.max(height, lowerBound.getY());
+		
+		horizontalCellsCount = width;
+		verticalCellsCount = height;
 	}
 
 	public void reset() {
@@ -112,7 +111,7 @@ public class GameState {
 		this.speed = speed;
 	}
 
-	public ArtifactTracker getArtifacts() {
+	public ArtifactRegistry getArtifacts() {
 		return artifacts;
 	}
 

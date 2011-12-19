@@ -4,17 +4,17 @@ import s3.client.controller.Clock;
 import s3.client.controller.Controller;
 import s3.client.domain.GameState;
 import s3.client.platform.GWTPlatform;
-import s3.client.presentation.MainView;
+import s3.client.presentation.GWTView;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class S3 implements EntryPoint {
+public class SnakeModule implements EntryPoint {
 	FocusWidget focusWidget;
 	
-	MainView view = new MainView();
+	GWTView view = new GWTView();
 	GameState game = new GameState();
 	
 	Controller controller = new Controller(game, view);

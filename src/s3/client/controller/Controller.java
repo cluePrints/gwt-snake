@@ -19,14 +19,10 @@ import s3.client.domain.Position;
 import s3.client.domain.rules.Rule;
 import s3.client.domain.rules.Rules;
 import s3.client.platform.Platform;
-import s3.client.presentation.KeyToDirectionStrategy;
 import s3.client.presentation.View;
 import s3.client.scoring.Scoring;
 
-import com.google.gwt.event.dom.client.KeyCodes;
-
 public class Controller {
-	private KeyToDirectionStrategy keyMapping = new KeyToDirectionStrategy();
 	Rule rules = Rules.standard();
 	GameState game;
 	View view;
@@ -52,29 +48,39 @@ public class Controller {
 		render();		
 	}
 
-	public void onKeyDown(int keyCode) {
+	public void onDirectionChange(Direction desired) {
 		Direction currentDirection = game.getSnakeDirection();
-		newDirection = keyMapping.decide(currentDirection, keyCode);
-		
-		if (keyCode == KeyCodes.KEY_ESCAPE) {
-			togglePause();
-		}
+		newDirection = DirectionTransitions.from(currentDirection).to(desired);
 	}
-
+	
+	public void onPauseToggle() {
+		togglePause();
+	}
 
 	public void init() {
 		syncSizeWithView();
 	}
 	
+	public void setClock(Clock clock) {
+		this.clock = clock;
+	}
+	
+	public void onSpeedChange(GameSpeed speed) {
+		game.setSpeed(speed);
+	}
+	
 	public void onGameFieldBoundaryChange(Direction direction) {
+		resizeIfPossible(direction);		
+		syncSizeWithView();
+	}
+
+	private void resizeIfPossible(Direction direction) {
 		int width = game.getHorizontalCellsCount();
 		int height = game.getVerticalCellsCount();
 		int desiredWidth = width + direction.getDeltaX();
 		int desiredHeight = height + direction.getDeltaY();
 		
 		game.tryResize(desiredWidth, desiredHeight);
-		
-		syncSizeWithView();
 	}
 	
 	void renderArtifacts() {
@@ -136,14 +142,6 @@ public class Controller {
 			game.setStatus(IN_PROGRESS);
 			clock.resume();
 		}
-	}
-	
-	public void setClock(Clock clock) {
-		this.clock = clock;
-	}
-	
-	public void onSpeedChange(GameSpeed speed) {
-		game.setSpeed(speed);
 	}
 	
 	private void injectViewWithThis(View view) {

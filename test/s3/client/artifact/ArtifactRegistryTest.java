@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ArtifactRegistryTest {
 	@Test
 	public void shouldProperlyRemoveByClass() {
-		ArtifactTracker registry = new ArtifactTracker();
+		ArtifactRegistry registry = new ArtifactRegistry();
 		Apple apple = new Apple(null, null);
 		registry.tryPutAt(at(1,2), apple);
 		registry.tryPutAt(at(2,2), new Strawberry(null, null));

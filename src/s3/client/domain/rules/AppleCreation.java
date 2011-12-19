@@ -7,7 +7,6 @@ import s3.client.domain.Position;
 
 class AppleCreation extends ArtifactCreation {	
 	Artifact newArtifact(Position position, GameState game) {
-		System.out.println("Creating apple at "+position);
 		return new Apple(position, game.getScoring());
 	}
 }

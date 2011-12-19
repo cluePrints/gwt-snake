@@ -13,27 +13,13 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.UIObject;
 
-public class SnakeRenderer {	
+public class SpriteRenderer {	
 	private AbsolutePanel playground;
 	private String themeName = "theme1";
 	private int segmentSizePx = 20;
 	Map<Position, Sprite> drawnSprites = new HashMap<Position, Sprite>();
-	static class Sprite {
-		Image instance;
-		CellContent type;
-		Sprite(Image sprite, CellContent type) {
-			super();
-			this.instance = sprite;
-			this.type = type;
-		}
-		@Override
-		public String toString() {
-			return "Sprite [instance=" + instance + ", type=" + type + "]";
-		}
-	}
-
 	
-	public SnakeRenderer(AbsolutePanel playground) {
+	public SpriteRenderer(AbsolutePanel playground) {
 		super();
 		this.playground = playground;
 	}
@@ -60,9 +46,6 @@ public class SnakeRenderer {
 			Image cell = newImage(type);
 			
 			Sprite oldCell = drawnSprites.put(p, new Sprite(cell, type));
-			if (oldCell != null) {
-				System.out.println("Dropping "+oldCell);
-			}
 			removeFromTheField(oldCell);
 			
 			putAt(p, cell);
@@ -70,7 +53,6 @@ public class SnakeRenderer {
 	}
 	
 	void cleanCell(Position pos) {
-		System.out.println("Removing "+pos);
 		Sprite sprite = drawnSprites.get(pos);
 		removeFromTheField(sprite);
 	}
@@ -90,9 +72,8 @@ public class SnakeRenderer {
 	private Image newImage(CellContent type) {
 		Image cell = new Image();
 		cell.setStylePrimaryName(themeName);
-		cell.addStyleDependentName(type.getStyleName());
+		cell.addStyleDependentName(StyleNames.forCellContent(type));
 		cell.setPixelSize(segmentSizePx, segmentSizePx);
-		System.out.println("Got "+drawnSprites.size()+" sprites drawn");
 		return cell;
 	}
 	
@@ -104,23 +85,44 @@ public class SnakeRenderer {
 	}
 
 	private void clearSegmentsNotIn(Collection<Position> newPositions, CellContent type) {
+		Set<Position> segmentsToClean = byType(type);
+		
+		segmentsToClean.removeAll(newPositions);
+		
+		cleanPositionsWithCellsOfType(segmentsToClean, type);
+	}
+
+	private void cleanPositionsWithCellsOfType(Set<Position> segmentsToClean,
+			CellContent type) {
+		for (Position segment : segmentsToClean) {
+			Sprite sprite = drawnSprites.get(segment);
+			if (sprite != null && type.equals(sprite.type)) {
+				removeFromTheField(drawnSprites.remove(segment));
+			}
+		}
+	}
+
+	private Set<Position> byType(CellContent type) {
 		Set<Position> segmentsToClean = new HashSet<Position>();
 		for (Map.Entry<Position, Sprite> e : drawnSprites.entrySet()) {
 			if (type.equals(e.getValue().type)) {
 				segmentsToClean.add(e.getKey());
 			}
 		}
-		
-		segmentsToClean.removeAll(newPositions);
-		for (Position segment : segmentsToClean) {
-			Sprite sprite = drawnSprites.get(segment);
-			if (sprite != null && type.equals(sprite.type)) {
-				if (type.equals(CellContent.APPLE)) {
-					System.out.println("Dropping "+type+"@"+segment);
-				}
-				removeFromTheField(drawnSprites.remove(segment));
-			}
+		return segmentsToClean;
+	}
+	
+	static class Sprite {
+		Image instance;
+		CellContent type;
+		Sprite(Image sprite, CellContent type) {
+			super();
+			this.instance = sprite;
+			this.type = type;
+		}
+		@Override
+		public String toString() {
+			return "Sprite [instance=" + instance + ", type=" + type + "]";
 		}
 	}
-
 }

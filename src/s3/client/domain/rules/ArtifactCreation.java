@@ -3,7 +3,7 @@ package s3.client.domain.rules;
 import java.util.Random;
 
 import s3.client.artifact.Artifact;
-import s3.client.artifact.ArtifactTracker;
+import s3.client.artifact.ArtifactRegistry;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
 import s3.client.domain.Snake;
@@ -22,7 +22,7 @@ abstract class ArtifactCreation implements Rule {
 	
 	@Override
 	public final void evaluate(GameState game) {			
-		if (random.nextFloat() > probability)
+		if (timeToCreateOne())
 			return;
 		
 		Position newPos = inventRandomPos(game);		
@@ -30,13 +30,16 @@ abstract class ArtifactCreation implements Rule {
 		Snake snake = game.getSnake();
 		boolean isUsedBySnake = snake.hasSegment(newPos);
 		if (isUsedBySnake) {
-			System.out.println("Used by snake "+newPos);
 			return;
 		}
 		
 		Artifact newbie = newArtifact(newPos, game);
-		ArtifactTracker artifacts = game.getArtifacts();
+		ArtifactRegistry artifacts = game.getArtifacts();
 		artifacts.tryPutAt(newPos, newbie);
+	}
+
+	private boolean timeToCreateOne() {
+		return random.nextFloat() > probability;
 	}
 	
 	abstract Artifact newArtifact(Position position, GameState game); 

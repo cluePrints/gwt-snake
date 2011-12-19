@@ -16,8 +16,6 @@ import s3.client.domain.Direction;
 import s3.client.domain.GameState;
 import s3.client.presentation.View;
 
-import com.google.gwt.event.dom.client.KeyCodes;
-
 public class ControllerTest {	
 	
 	@Test
@@ -37,8 +35,8 @@ public class ControllerTest {
 		GameState game = new GameState();
 		game.setSnakeDirection(Direction.UP);
 		Controller controller = new Controller(game, createMockView());
-		controller.onKeyDown(KeyCodes.KEY_LEFT);
-		controller.onKeyDown(KeyCodes.KEY_RIGHT);
+		controller.onDirectionChange(Direction.LEFT);
+		controller.onDirectionChange(Direction.RIGHT);
 		controller.onGameClockTick();
 		
 		Assert.assertEquals(Direction.RIGHT, game.getSnakeDirection());

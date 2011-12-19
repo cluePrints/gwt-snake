@@ -11,20 +11,20 @@ import org.junit.Test;
 
 import s3.client.domain.Position;
 import static s3.client.domain.CellContent.*;
-import s3.client.presentation.SnakeRenderer;
-import s3.client.presentation.SnakeRenderer.Sprite;
+import s3.client.presentation.SpriteRenderer;
+import s3.client.presentation.SpriteRenderer.Sprite;
 
 public class SnakeRendererTest {
 	@Test
 	public void shouldTolerateRemovingUnexistingElements() {
-		SnakeRenderer unit = new SnakeRenderer(null);
+		SpriteRenderer unit = new SpriteRenderer(null);
 		unit.cleanCell(Position.at(-1, -999));
 	}
 	
 	@Test
 	public void shouldNotAffectExistingElementsDrawMissingNewElements() {
-		SnakeRenderer unit = new SnakeRenderer(null);
-		Sprite existed = new SnakeRenderer.Sprite(null, SNAKE);
+		SpriteRenderer unit = new SpriteRenderer(null);
+		Sprite existed = new SpriteRenderer.Sprite(null, SNAKE);
 		Position pos = at(3,3);
 		unit.drawnSprites.put(pos, existed);
 				
@@ -36,8 +36,8 @@ public class SnakeRendererTest {
 	
 	@Test
 	public void shouldCleanElementsWithNotCurrentPositions() {
-		SnakeRenderer unit = new SnakeRenderer(null);
-		Sprite existed = new SnakeRenderer.Sprite(null, SNAKE);
+		SpriteRenderer unit = new SpriteRenderer(null);
+		Sprite existed = new SpriteRenderer.Sprite(null, SNAKE);
 		Position pos = at(3,3);
 		unit.drawnSprites.put(pos, existed);
 				

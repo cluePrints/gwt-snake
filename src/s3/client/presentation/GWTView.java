@@ -10,12 +10,14 @@ import java.util.Collection;
 import s3.client.controller.Controller;
 import s3.client.controller.ControllerAware;
 import s3.client.domain.CellContent;
+import s3.client.domain.Direction;
 import s3.client.domain.GameSpeed;
 import s3.client.domain.Position;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -28,14 +30,15 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MainView extends Composite implements View, ControllerAware {
+public class GWTView extends Composite implements View, ControllerAware {
 	private static final int CELL_SIZE_PX = 20;	
-	SnakeRenderer renderer;
+	KeyToDirection keyCodes = new KeyToDirection();
+	SpriteRenderer renderer;
 	SkinsController skins;
 	Controller controller;
 	
-	private static MainViewUiBinder uiBinder = GWT.create(MainViewUiBinder.class);
-	interface MainViewUiBinder extends UiBinder<Widget, MainView> {}
+	private static GWTViewUiBinder uiBinder = GWT.create(GWTViewUiBinder.class);
+	interface GWTViewUiBinder extends UiBinder<Widget, GWTView> {}
 	
 	@UiField
 	ListBox speedChooser;
@@ -56,27 +59,23 @@ public class MainView extends Composite implements View, ControllerAware {
 	Label maxScoreLabel;
 	
 
-	public MainView() {
+	public GWTView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		renderer = new SnakeRenderer(playground);
+		renderer = new SpriteRenderer(playground);
 		skins = new SkinsController(renderer, playground);
 		
-		playground.addStyleDependentName("playground");
-		
-		for (String id : skins.getIds()) {
-			skinsChooser.addItem(id);
-		}
-		
-		for (GameSpeed speed : GameSpeed.values()) {
-			speedChooser.addItem(speed.name());
-		}
+		setPlaygroundStyle();		
+		initThemeChooser();		
+		initSpeedChooser();
 	}
 	
 	@UiHandler("btnIncreaseWidth")
 	public void onKeyDown(KeyDownEvent event) {
-		controller.onKeyDown(event.getNativeKeyCode());
+		int code = event.getNativeKeyCode();
+		handleDirectionChangeIfAny(code);		
+		handlePauseIfAny(code);
 	}
-
+	
 	@UiHandler("btnIncreaseWidth")
 	void onIncreaseWidth(ClickEvent e) {
 		controller.onGameFieldBoundaryChange(RIGHT);
@@ -148,5 +147,37 @@ public class MainView extends Composite implements View, ControllerAware {
 	@Override
 	public void clearPlayground() {
 		playground.clear();
+	}
+	
+
+	private void setPlaygroundStyle() {
+		playground.addStyleDependentName(StyleNames.PLAYGROUND);
+	}
+
+	private void initSpeedChooser() {
+		for (GameSpeed speed : GameSpeed.values()) {
+			speedChooser.addItem(speed.name());
+		}
+	}
+
+	private void initThemeChooser() {
+		for (String id : skins.getThemeIds()) {
+			skinsChooser.addItem(id);
+		}
+	}
+	
+
+	private void handlePauseIfAny(int code) {
+		if (code == KeyCodes.KEY_ESCAPE) {
+			controller.onPauseToggle();
+		}
+	}
+
+	private void handleDirectionChangeIfAny(int code) {
+		Direction direction = keyCodes.map(code);
+		if (direction == null)
+			return;
+		
+		controller.onDirectionChange(direction);
 	}
 }

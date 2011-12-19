@@ -14,6 +14,8 @@
   <!-- Other module inherits                                      -->
 
   <!-- Specify the app entry point class.                         -->
+  <entry-point class='s3.client.SnakeModule'/>
+
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
