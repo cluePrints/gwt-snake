@@ -17,6 +17,11 @@ class StrawberryCreation extends ArtifactCreation {
 	Platform platform = new GWTPlatform();
 	
 	Artifact newArtifact(Position position, GameState game) {
+		Artifact strawberry = createEnsureOnlyOneExists(position, game);
+		return strawberry;
+	}
+
+	private Artifact createEnsureOnlyOneExists(Position position, GameState game) {
 		ArtifactRegistry registry = game.getArtifacts();
 		registry.removeAllOf(Strawberry.class);
 		return new Strawberry(position, platform);
