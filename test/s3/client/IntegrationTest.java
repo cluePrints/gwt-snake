@@ -16,7 +16,6 @@ import s3.client.domain.Direction;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
 import s3.client.domain.Snake;
-import s3.client.platform.J2SEPlatform;
 import s3.client.platform.Platform;
 import s3.client.presentation.View;
 

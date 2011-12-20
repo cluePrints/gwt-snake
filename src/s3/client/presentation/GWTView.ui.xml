@@ -3,6 +3,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:AbsolutePanel>		
 		<g:HorizontalPanel>
+			<g:Button ui:field="btnPause" text="Pause"/>
 			<g:Button ui:field="btnIncreaseWidth" text="Width +"/>
 			<g:Button ui:field="btnDecreaseWidth" text="Width -"/>
 			<g:Button ui:field="btnDecreaseHeight" text="Height -"/>

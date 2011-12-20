@@ -10,8 +10,9 @@ import s3.client.domain.CellContent;
 import s3.client.domain.Position;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 
 public class SpriteRenderer {	
 	private AbsolutePanel playground;
@@ -43,7 +44,7 @@ public class SpriteRenderer {
 
 	void plainRenderSnakeCells(Collection<Position> cells, CellContent type) {
 		for (Position p : cells) {		
-			Image cell = newImage(type);
+			Widget cell = newImage(type);
 			
 			Sprite oldCell = drawnSprites.put(p, new Sprite(cell, type));
 			removeFromTheField(oldCell);
@@ -63,14 +64,18 @@ public class SpriteRenderer {
 		sprite.instance.removeFromParent();
 	}
 	
-	private void putAt(Position p, Image cell) {
+	private void putAt(Position p, Widget cell) {
 		int left = p.getX() * segmentSizePx;
 		int top = p.getY() * segmentSizePx;			
 		playground.add(cell, left, top);
 	}
 
-	private Image newImage(CellContent type) {
-		Image cell = new Image();
+	/**
+	 * Images with bg-image won't work in IE as in other browsers(it will show it as a broken image)
+	 * so using something other:) 
+	 */
+	private Label newImage(CellContent type) {
+		Label cell = new Label();
 		cell.setStylePrimaryName(themeName);
 		cell.addStyleDependentName(StyleNames.forCellContent(type));
 		cell.setPixelSize(segmentSizePx, segmentSizePx);
@@ -113,9 +118,9 @@ public class SpriteRenderer {
 	}
 	
 	static class Sprite {
-		Image instance;
+		Widget instance;
 		CellContent type;
-		Sprite(Image sprite, CellContent type) {
+		Sprite(Widget sprite, CellContent type) {
 			super();
 			this.instance = sprite;
 			this.type = type;

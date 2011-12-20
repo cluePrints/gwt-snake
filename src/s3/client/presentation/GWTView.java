@@ -19,6 +19,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -30,7 +31,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class GWTView extends Composite implements View, ControllerAware {
+public class GWTView extends Composite implements View, ControllerAware, KeyDownHandler{
 	private static final int CELL_SIZE_PX = 20;	
 	KeyToDirection keyCodes = new KeyToDirection();
 	SpriteRenderer renderer;
@@ -47,6 +48,15 @@ public class GWTView extends Composite implements View, ControllerAware {
 	Button btnIncreaseWidth;
 	
 	@UiField
+	Button btnIncreaseHeight;
+	
+	@UiField
+	Button btnDecreaseWidth;
+	
+	@UiField
+	Button btnDecreaseHeight;
+	
+	@UiField
 	ListBox skinsChooser;
 	
 	@UiField
@@ -58,18 +68,15 @@ public class GWTView extends Composite implements View, ControllerAware {
 	@UiField
 	Label maxScoreLabel;
 	
+	@UiField
+	Button btnPause;
 
 	public GWTView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		renderer = new SpriteRenderer(playground);
 		skins = new SkinsController(renderer, playground);
-		
-		setPlaygroundStyle();		
-		initThemeChooser();		
-		initSpeedChooser();
 	}
 	
-	@UiHandler("btnIncreaseWidth")
 	public void onKeyDown(KeyDownEvent event) {
 		int code = event.getNativeKeyCode();
 		handleDirectionChangeIfAny(code);		
@@ -100,15 +107,17 @@ public class GWTView extends Composite implements View, ControllerAware {
 	void onSkinsChange(ChangeEvent e) {
 		int selIdx = skinsChooser.getSelectedIndex();
 		skins.switchTo(selIdx);
+		skinsChooser.setFocus(false);
 	}
 
 	@UiHandler("speedChooser")
 	void onSpeedChange(ChangeEvent e) {
-		int selIdx = speedChooser.getSelectedIndex();
+		int selIdx = speedChooser.getSelectedIndex();		
 		GameSpeed speed = GameSpeed.values()[selIdx];
 		controller.onSpeedChange(speed);		
+		speedChooser.setFocus(false);
 	}
-
+	
 	@Override
 	public void updatePlaygroundSize(int horizontalCells, int verticalCells) {
 		int width = horizontalCells * CELL_SIZE_PX;
@@ -149,6 +158,41 @@ public class GWTView extends Composite implements View, ControllerAware {
 		playground.clear();
 	}
 	
+	public void initAndRender() {
+		btnPause.setFocus(true);
+		setPlaygroundStyle();		
+		initThemeChooser();		
+		initSpeedChooser();		
+		reflectAsWidgetsState(controller.isPaused());
+	}
+	
+	@UiHandler({"btnPause"})
+	void onPauseClick(ClickEvent e) {
+		controller.onPauseToggle();
+		boolean paused = controller.isPaused();
+		reflectAsWidgetsState(paused);
+	}
+
+	private void reflectAsWidgetsState(boolean paused) {
+		FocusWidget[] availableWhilePaused = {btnDecreaseHeight, btnDecreaseWidth, btnIncreaseWidth, btnIncreaseHeight, skinsChooser, speedChooser};
+		if (paused) {
+			enable(availableWhilePaused);
+		} else {
+			disable(availableWhilePaused);
+		}
+	}	
+	
+	private void enable(FocusWidget... widgets) {
+		for (FocusWidget w : widgets) {
+			w.setEnabled(true);
+		}
+	}
+	
+	private void disable(FocusWidget... widgets) {
+		for (FocusWidget w : widgets) {
+			w.setEnabled(false);
+		}
+	}
 
 	private void setPlaygroundStyle() {
 		playground.addStyleDependentName(StyleNames.PLAYGROUND);

@@ -29,6 +29,9 @@ public class Clock {
 		scheduleNextTick();
 	}
 	
+	public boolean isPaused() {
+		return paused;
+	}	
 
 	private void scheduleNextTick() {
 		Runnable tickTask = newTickTask();

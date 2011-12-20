@@ -1,8 +1,10 @@
-package s3.client.platform;
+package s3.client;
 
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import s3.client.platform.Platform;
 
 public class J2SEPlatform implements Platform {
 	@Override

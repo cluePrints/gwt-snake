@@ -7,13 +7,10 @@ import s3.client.platform.GWTPlatform;
 import s3.client.presentation.GWTView;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class SnakeModule implements EntryPoint {
-	FocusWidget focusWidget;
-	
 	GWTView view = new GWTView();
 	GameState game = new GameState();
 	
@@ -21,18 +18,10 @@ public class SnakeModule implements EntryPoint {
 	Clock clock = new Clock(controller, game, new GWTPlatform());
 	
 	public void onModuleLoad() {
-		RootPanel.get().add(view);
-		controller.init();
-		
-		focusWidget = view.getFocusWidget();
-		Timer focusTimer = new Timer() {
-			public void run() {
-				focusWidget.setFocus(true);
-			};
-		};
-		focusTimer.scheduleRepeating(500);
-		
-		controller.setClock(clock);
-		clock.resume();
+		RootPanel root = RootPanel.get();
+		root.add(view);
+		root.addDomHandler(view, KeyDownEvent.getType());
+		controller.initAndStartWith(clock);
+		view.initAndRender();
 	}
 }

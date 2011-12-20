@@ -56,6 +56,10 @@ public class Controller {
 	public void onPauseToggle() {
 		togglePause();
 	}
+	
+	public boolean isPaused() {
+		return clock.isPaused();
+	}
 
 	public void init() {
 		syncSizeWithView();
@@ -72,6 +76,12 @@ public class Controller {
 	public void onGameFieldBoundaryChange(Direction direction) {
 		resizeIfPossible(direction);		
 		syncSizeWithView();
+	}
+	
+	public void initAndStartWith(Clock clock) {
+		setClock(clock);
+		init();
+		clock.resume();
 	}
 
 	private void resizeIfPossible(Direction direction) {

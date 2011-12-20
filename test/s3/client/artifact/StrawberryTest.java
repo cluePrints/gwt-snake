@@ -4,9 +4,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import s3.client.J2SEPlatform;
 import s3.client.domain.GameState;
 import s3.client.domain.Position;
-import s3.client.platform.J2SEPlatform;
 import s3.client.scoring.Scoring;
 
 public class StrawberryTest{
