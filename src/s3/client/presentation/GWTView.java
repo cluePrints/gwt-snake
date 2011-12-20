@@ -23,12 +23,14 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GWTView extends Composite implements View, ControllerAware, KeyDownHandler{
@@ -59,8 +61,8 @@ public class GWTView extends Composite implements View, ControllerAware, KeyDown
 	@UiField
 	ListBox skinsChooser;
 	
-	@UiField
-	AbsolutePanel playground;
+	AbsolutePanel playground;	
+	AbsolutePanel background;
 	
 	@UiField
 	Label currScoreLabel;
@@ -72,9 +74,14 @@ public class GWTView extends Composite implements View, ControllerAware, KeyDown
 	Button btnPause;
 
 	public GWTView() {
+		playground = RootPanel.get("playground");
+		//playground.setStylePrimaryName("playground");
+		background = RootPanel.get("background");
+		//playground.setStylePrimaryName("background");
+		
 		initWidget(uiBinder.createAndBindUi(this));
 		renderer = new SpriteRenderer(playground);
-		skins = new SkinsController(renderer, playground);
+		skins = new SkinsController(renderer, playground, background);		
 	}
 	
 	public void onKeyDown(KeyDownEvent event) {
@@ -123,6 +130,9 @@ public class GWTView extends Composite implements View, ControllerAware, KeyDown
 		int width = horizontalCells * CELL_SIZE_PX;
 		int height = verticalCells * CELL_SIZE_PX;
 		playground.setPixelSize(width, height);
+		
+		int borderOverhead = CELL_SIZE_PX*2;
+		background.setPixelSize(width + borderOverhead, height + borderOverhead);
 	}
 	
 	public AbsolutePanel getPlayground() {
@@ -160,7 +170,6 @@ public class GWTView extends Composite implements View, ControllerAware, KeyDown
 	
 	public void initAndRender() {
 		btnPause.setFocus(true);
-		setPlaygroundStyle();		
 		initThemeChooser();		
 		initSpeedChooser();		
 		reflectAsWidgetsState(controller.isPaused());
@@ -192,10 +201,6 @@ public class GWTView extends Composite implements View, ControllerAware, KeyDown
 		for (FocusWidget w : widgets) {
 			w.setEnabled(false);
 		}
-	}
-
-	private void setPlaygroundStyle() {
-		playground.addStyleDependentName(StyleNames.PLAYGROUND);
 	}
 
 	private void initSpeedChooser() {

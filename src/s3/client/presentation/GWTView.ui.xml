@@ -17,6 +17,5 @@
 		<g:HorizontalPanel>
 			<g:Label text="Highest:"/><g:Label ui:field="maxScoreLabel"/>
 		</g:HorizontalPanel>
-		<g:AbsolutePanel ui:field="playground"/>
 	</g:AbsolutePanel>
 </ui:UiBinder> 

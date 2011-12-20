@@ -1,40 +1,42 @@
 package s3.client.presentation;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 
 public class SkinsController {	
 	private List<String> ids = Arrays.asList("theme1", "theme2");
 	private SpriteRenderer renderer;
-	private AbsolutePanel playground;
+	private Widget[] statics;
+	private String lastStyle;
 	
-	public SkinsController(SpriteRenderer sRenderer, AbsolutePanel playground) {
+	public SkinsController(SpriteRenderer sRenderer, Widget... statics) {
 		super();
 		this.renderer = sRenderer;
-		this.playground = playground;
+		this.statics = statics;
 		switchTo(0);
 	}
 	
 	public void switchTo(int skinIndex) {
-		String themeId = ids.get(skinIndex);
-		updateFactoryTheme(themeId);
-		updateExistingObjects(themeId);
+		String skinStyleName = ids.get(skinIndex);
+		updateFactoryTheme(skinStyleName);
+		updateExistingObjects(skinStyleName);
+		updateLastStyle(skinStyleName);
 	}
 
 	public List<String> getThemeIds() {
 		return ids;
 	}
 	
-	private void updateExistingObjects(String currentId) {
-		Set<UIObject> objectsToStyle = getStyleableObjects();
+	private void updateExistingObjects(String newStyle) {
+		Collection<UIObject> objectsToStyle = getStyleableObjects();
 		for (UIObject o : objectsToStyle) {
-			o.setStylePrimaryName(currentId);
+			o.removeStyleDependentName(lastStyle);
+			o.addStyleDependentName(newStyle);
 		}
 	}
 
@@ -42,10 +44,15 @@ public class SkinsController {
 		renderer.setThemeName(currentId);
 	}
 
-	private Set<UIObject> getStyleableObjects() {
-		Set<UIObject> objectsToStyle = new HashSet<UIObject>();
-		objectsToStyle.add(playground);
+	private Collection<UIObject> getStyleableObjects() {
+		List<UIObject> objectsToStyle = new LinkedList<UIObject>();
+		objectsToStyle.addAll(Arrays.asList(statics));
 		objectsToStyle.addAll(renderer.getStyledChildren());
 		return objectsToStyle;
 	}
+	
+	private void updateLastStyle(String themeId) {
+		lastStyle = themeId;
+	}
+
 }

@@ -76,8 +76,8 @@ public class SpriteRenderer {
 	 */
 	private Label newImage(CellContent type) {
 		Label cell = new Label();
-		cell.setStylePrimaryName(themeName);
-		cell.addStyleDependentName(StyleNames.forCellContent(type));
+		cell.setStylePrimaryName(StyleNames.forCellContent(type));
+		cell.addStyleDependentName(themeName);
 		cell.setPixelSize(segmentSizePx, segmentSizePx);
 		return cell;
 	}

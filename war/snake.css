@@ -1,99 +1,66 @@
-.theme1-playground {
-	left: 0;
-	top: 0;
+.playground-theme1 {
 	background-image:url("images/bg4.jpg");
-	z-index: 1;
-	position: absolute;
-	border-image: url("images/fancy_border_1.png");
-	border-width: 15px;
 }
 
-.theme1-snakeSegment {
+.background-theme1 {
+	background-image: url("images/snakeSegment1.png");
+}
+
+.snakeSegment-theme1 {
 	background-image: url("images/snakeSegment1.png");
 	background-repeat: none;
-	z-index: 2;
 }
 
-.theme1-apple {
+.apple-theme1 {
 	background-image: url("images/appleNice.gif");
 	background-repeat: none;
-	z-index: 2;
 }
 
-.theme1-strawberry {
+.strawberry-theme1 {
 	background-image: url("images/strawberry1.png");
 	background-repeat: none;
 	z-index: 2;
 }
 
-
-.theme2-playground {
-	left: 0;
-	top: 0;
-	z-index: 0;
-	background-image:url("images/bg5.jpg");
-	position: absolute;
-	border-style: dotted;
-	border-width: 5px; 
+.playground-theme2 {
+	background-image:url("images/bg5.jpg");	
 }
 
-.theme2-snakeSegment {
+.background-theme2 {
+	background-image: url("images/snakeSegment2.png");
+}
+
+.snakeSegment-theme2 {
 	background-image: url("images/snakeSegment2.png");
 	background-repeat: none;
 }
 
 
-.theme2-apple {
+.apple-theme2 {
 	background-image: url("images/applePixely.gif");
 	background-repeat: none;
 	z-index: 2;
 }
 
-.theme2-strawberry {
+.strawberry-theme2 {
 	background-image: url("images/strawberry2.gif");
 	background-repeat: none;
 	z-index: 2;
 }
 
-.background {
-	left: 0;
-	top: 0;
-	width: 100px;
-	height: 100px;
-	background-color: 000000;
-	color: #000000;
+.playgroundPosition {
+	top: 20px;
+	left: 20px;
 	z-index: 1;
 	position: absolute;
+	border: none;
+	display: block;		
 }
 
-/** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
-}
-
-.sendButton {
-  display: block;
-  font-size: 16pt;
-}
-
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
-}
-
-.dialogVPanel {
-  margin: 5px;
-}
-
-.serverResponseLabelError {
-  color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
+.backgroundPosition {
+	top: 80px;
+	left: 0;
+	z-index: -1;
+	position: absolute;
+	display: block;
 }
